@@ -1,0 +1,13 @@
+	    .mytitle {
+	    color: orange;
+        background-color: lime;
+        color: white;
+        background-image: url(http://www.forest.go.kr/newkfsweb/cmm/fms/FileDown.do?atchFileId=FILE_000000010008639&fileSn=0);
+        background-size: cover;
+        width: 300px;
+        height: 200px;
+        text-align: center;
+        background-position: center;
+        /*font-family: 'Cute Font', cursive;*/
+	    }
+ 
