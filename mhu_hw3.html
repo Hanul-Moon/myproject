@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Webpage Title -->
+  <title>Hanul Homework1</title>
+
+  <!-- 한국어에 필요 -->
+  <meta charset="utf-8">
+  <!-- 모바일에 필요 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- JS -->   
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script>
+	//페이지 로딩하면서 바로 실행됨.
+	$(document).ready(function(){
+	$('#table_add').html(''); 
+	order_listing();
+	});
+	function order_listing(){
+		$.ajax({
+			type: "GET",
+			url: "http://spartacodingclub.shop/order",
+			data: {}, //GET에서는 data parameter를 주지 않는다. POST에서만 준다.
+			success: function(response){
+				//console.log(response['orders'])
+				let orders = response['orders']; //orders는 딕셔너리를 항목으로 갖고 있는 리스트.
+				for (let i=0; i < orders.length; i++){
+					//console.log(orders[i]);
+					let address = orders[i]['address'];
+					let count = orders[i]['count'];
+					let name = orders[i]['name'];
+					let phone = orders[i]['phone'];			
+					//console.log(address[i]);
+					make_table(address, count, name, phone)
+				}
+			}
+		})
+	}
+
+	function make_table(address, count, name, phone) {
+		//tr을 class로 구분해 줘야함.
+		let temp_html = '<tr class="table_row">\
+					  <th scope="row">'+name+'</th>\
+				      <td>'+count+'</td>\
+				      <td>'+address+'</td>\
+				      <td>'+phone+'</td>\
+			    	</tr>';
+		$('#table_add').append(temp_html);
+	}
+  </script>
+
+  <script type="text/javascript">
+		function alrt(){
+			var name=$('#name').val();
+			var addr=$('#address').val();
+			var mobile=$('#phonenumber').val();
+			if(name==''){
+				alert('이름을 입력하세요');
+				$('#name').focus();
+			}
+				else if(addr==''){
+					alert('주소를 입력하세요');
+					$('#address').focus();
+				}
+				else if(mobile==''){
+					alert('전화번호를 입력하세요');
+					$('#phonenumber').focus();
+				}
+				else if(mobile!=''){
+					   var rgEx = /(01[016789])[-](\d{4}|\d{3})[-]\d{4}$/g; 
+					   var chkFlg = rgEx.test(mobile);  
+					   if(!chkFlg){
+					    alert("올바른 휴대폰번호가 아닙니다. 01x-xxxx-xxxx 형식으로 입력하세요.");
+					    $('#phonenumber').focus();
+					    return false; //false를 리턴하는 이유?
+					}
+				}
+				else{
+					//아무것도 안함.
+				}
+			}
+  </script>
+  <style>
+		/*body {
+			border: solid;
+			border-width: thick;
+			border-color: black;
+		}*/
+		.pos1 {
+			position: relative;
+			left: 300px;
+        	top: 10px;
+		}
+		/* class를 만들어 가리킬 때 */
+	    .sentence1 {
+	    	font-style: serif;
+	    	font-size: 25px;
+	    	font-weight: bold;
+	    }
+	    .sentence2 {
+	    	font-style: serif;
+	    	font-size: 15px;
+	    	font-weight: normal;
+	    }
+	    .sentence3 {
+	    	font-style: serif;
+	    	font-size: 20px;
+	    	font-weight: normal;
+	    }
+	    .imgpos { 
+        position: relative;
+        left: 180px;
+        top: 10px;
+      	}
+
+     	.btn { 
+        position: relative;
+        left: 200px;
+        top: 10px;
+        margin-bottom: 50px;
+      	} 
+
+
+   	</style>
+</head>
+
+<body>
+	<div class="pos1">
+		<div>
+			<img class="imgpos" src="http://analogstyle.co.kr/wp-content/uploads/2016/11/graham-ls-5-9.jpg" width="500" height="400">
+		</div>
+		
+		<div class="container">
+		  <div class="row">
+		    <div class="col">
+		        <h1 class="sentence1">
+				상품제목
+				</h1>
+		    </div>
+		    <div class="col-9">
+		        <h4 class="sentence2">
+			    가격: 1,000,000원 / 개
+				</h4>
+		    </div>
+		  </div>
+		
+			<h4 class="sentence2">
+			    이 상품은 고성능 클래식 스피커로서, 환상적인 중저음을 들려줍니다.
+			</h4>
+		    
+		    <h1 class="sentence1">
+			주문하기
+			</h1>
+
+			<div class="row">
+			    <div class="col-2">
+					<h4 class="sentence2">
+					    주문자 성함:
+					</h4>
+			    </div>
+			    <div class="col-4">
+			        <input id="name" type="text">
+			    </div>
+			    <div class="col-5">       
+			    </div>
+		  	</div>
+
+		  	<div class="row">
+			    <div class="col-2">
+					<h4 class="sentence2">
+					    수량:
+					</h4>
+			    </div>
+			    <div class="col-2">
+			        <select class="form-control" id="exampleFormControlSelect1">
+				      <option>1</option>
+				      <option>2</option>
+				      <option>3</option>
+				      <option>4</option>
+				      <option>5</option>
+				  </select>
+			    </div>
+			    <div class="col-5">       
+			    </div>
+		  	</div>
+
+		  	<div class="row">
+			    <div class="col-2">
+					<h4 class="sentence2">
+					    주소:
+					</h4>
+			    </div>
+			    <div class="col-4">
+			        <input id="address" type="text">
+			    </div>
+			    <div class="col-5">       
+			    </div>
+		  	</div>
+
+		  	<div class="row">
+			    <div class="col-2">
+					<h4 class="sentence2">
+					    전화번호:
+					</h4>
+			    </div>
+			    <div class="col-4">
+			        <input id="phonenumber" type="text">
+			    </div>
+			    <div class="col-5">       
+			    </div>
+		  	</div>
+	
+			<button onclick="alrt()" type="button" class="btn btn-primary">
+				<h4 class="sentence3">
+				주문하기
+				</h4>
+			</button>
+
+			<table class="table table-hover">
+				<thead>
+				    <tr>
+			    	  <th scope="col">이름</th>
+				      <th scope="col">수량</th>
+				      <th scope="col">주소</th>
+				      <th scope="col">전화번호</th>
+				    </tr>
+				  </thead>
+				  <tbody id="table_add">
+				  	<tr class="table_row">
+				      <th scope="row">1</th>
+				      <td>Mark</td>
+				      <td>Otto</td>
+				      <td>@mdo</td>
+					</tr>
+				  </tbody>
+			</table>
+		</div>
+		
+	</div>
+</body>
